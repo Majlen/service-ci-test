@@ -11,6 +11,10 @@ install:
   - pip install psycopg2 pytest
 
 before_script:
+  # Stop Travis Postgres (https://github.com/travis-ci/travis-ci/issues/4842#issuecomment-311527059)
+  - sudo service postgresql stop
+  # wait for postgresql to shutdown
+  - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
   - docker pull postgres:10-alpine
   - docker run --name postgres -p 127.0.0.1:5432:5432 -e POSTGRES_PASSWORD=test -e POSTGRES_USER=test -d postgres:10-alpine
   - docker ps -a
