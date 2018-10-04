@@ -13,7 +13,7 @@ jobs:
 #      - checkout
       - run:
           name: set postgres host
-	  command: sed -i s/localhost/127.0.0.1/ sqlconfig.py
+          command: sed -i s/localhost/127.0.0.1/ sqlconfig.py
 
       - run:
           name: install dependencies
