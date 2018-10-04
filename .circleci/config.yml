@@ -1,0 +1,29 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.1
+      - image: circleci/postgres:10-alpine
+        environment:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+
+
+    steps:
+#      - checkout
+      - run:
+          name: set postgres host
+	  command: sed -i s/localhost/127.0.0.1/ sqlconfig.py
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install psycopg2 pytest
+
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            pytest
