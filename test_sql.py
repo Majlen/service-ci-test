@@ -1,11 +1,12 @@
 import psycopg2
+import sqlconfig as cfg
 
 cur = None
 conn = None
 
 def setup_module():
 	global conn, cur
-	conn = psycopg2.connect(dbname="test", user="test", password="test", host="postgres")
+	conn = psycopg2.connect(dbname=cfg.psql['db'], user=cfg.psql['user'], password=cfg.psql['passwd'], host=cfg.psql['host'])
 	cur = conn.cursor()
 	cur.execute("CREATE TABLE handle (handle VARCHAR(16), resource_id INTEGER)")
 	cur.execute("INSERT INTO handle (handle, resource_id) VALUES ('11025/13829', 25142)")

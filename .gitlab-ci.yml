@@ -8,6 +8,7 @@ variables:
 
 before_script:
   - apk add py3-psycopg2 py3-pytest
+  - echo "psql = {'host': 'postgres', 'user': 'test', 'passwd': 'test', 'db': 'test'}" > sqlconfig.py
 
 test:
   script:
