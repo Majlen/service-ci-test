@@ -1,0 +1,14 @@
+image: alpine:3.8
+services:
+  - postgres:10-alpine
+
+variables:
+  POSTGRES_USER: test
+  POSTGRES_PASSWORD: test
+
+before_script:
+  - apk add py3-psycopg2 py3-pytest
+
+test:
+  script:
+    - pytest-3
